@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 db.connect();
 
 app.get('/data',(req,res)=>{
-    var sql = 'SELECT * FROM member';
+    var sql = `select member.nam,member.age,member.birthdate,member.blood_type,grup.group_name,member.pict_link from member inner join grup on member.groupid=grup.groupid`;
     db.query(sql,(err,res1)=>{
         if(err) throw err;
         console.log(res);
@@ -27,7 +27,7 @@ app.get('/data',(req,res)=>{
 
 app.get('/data/:nama',(req,res)=>{
     var nam=req.body.nama;
-    var sql = `SELECT * FROM member WHERE nam LIKE '%${req.params.nama}%'`;
+    var sql = `select member.nam,member.age,member.birthdate,member.blood_type,grup.group_name,member.pict_link from member inner join grup on member.groupid=grup.groupid where nam like '%${req.params.nama}%'`;
     db.query(sql,nam,(err,res1)=>{
         if(err) throw err;
         console.log(res);
